@@ -20,7 +20,7 @@ sudo apt install mysql-server php libapache2-mod-php php-mysql -y
 
 
 #Configuration MySQL
-mysql --user=root <<_EOF_
+sudo mysql --user=root <<_EOF_
   UPDATE mysql.user SET Password=PASSWORD('${db_root_password}') WHERE User='root';
   DELETE FROM mysql.user WHERE User='';
   DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
@@ -54,7 +54,7 @@ sudo systemctl reload apache2
 
 #Création du fichier test index.html
 sudo cat<<EOF | sudo tee /var/www/$NOM_DU_SITE/index.html
-<h1>Ça marche !!</h1>
+<h1>C marche !!</h1>
 
 <p>Ceci est un test depuis <strong>$NOM_DU_SITE</strong></p>
 EOF
