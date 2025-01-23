@@ -46,8 +46,24 @@ sudo systemctl reload apache2
 
 #Création du fichier test index.html
 sudo cat<<EOF | sudo tee /var/www/$NOM_DU_SITE/index.html
-<h1>C marche !!</h1>
+<h1>Ca marche !!</h1>
 
 <p>Ceci est un test depuis <strong>$NOM_DU_SITE</strong></p>
+EOF
+
+#Modification du fichier DirectoryIndex
+sudo cat<<EOF | sudo tee /etc/apache2/mods-enabled/dir.conf
+<IfModule mod_dir.c>
+        DirectoryIndex index.php index.html index.cgi index.pl index.xhtml index.htm
+</IfModule>
+EOF
+
+sudo systemctl reload apache2
+
+#Fichier test php
+cat<<EOF | tee /var/www/$NOM_DU_SITE/test.php
+<?php
+echo "Ceci est un test de php depuis $NOM_DU_SITE";
+?>
 EOF
 
